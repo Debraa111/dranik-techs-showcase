@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finance — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Finance</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content" style="max-width:1400px;">
+        <div class="stat-grid" id="summary-grid" style="margin-bottom:24px;"></div>
+
+        <div class="panel">
+          <div class="panel-header"><h2>Payments</h2></div>
+          <div class="toolbar">
+            <select id="f-status">
+              <option value="">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="successful">Successful</option>
+              <option value="failed">Failed</option>
+              <option value="refunded">Refunded</option>
+            </select>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Customer</th>
+                  <th>Booking</th>
+                  <th>Amount</th>
+                  <th>Method</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="payments-tbody"></tbody>
+            </table>
+          </div>
+          <div id="empty-state"></div>
+          <div class="pagination">
+            <span id="page-info"></span>
+            <div class="pager-btns">
+              <button class="btn btn-outline btn-sm" id="prev-page">Previous</button>
+              <button class="btn btn-outline btn-sm" id="next-page">Next</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/finance.js"></script>
+</body>
+</html>

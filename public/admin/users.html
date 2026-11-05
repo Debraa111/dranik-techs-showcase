@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Users — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Users</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content" style="max-width:1400px;">
+        <div class="panel">
+          <div class="toolbar">
+            <input type="text" id="f-search" placeholder="Search name, email, or phone" />
+            <select id="f-status">
+              <option value="">All statuses</option>
+              <option value="active">Active</option>
+              <option value="suspended">Suspended</option>
+              <option value="deactivated">Deactivated</option>
+              <option value="deleted">Deleted</option>
+            </select>
+            <select id="f-role">
+              <option value="">All types</option>
+              <option value="customer">Customer</option>
+              <option value="provider">Provider</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Joined</th>
+                  <th>Last seen</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+          <div id="empty-state"></div>
+          <div class="pagination">
+            <span id="page-info"></span>
+            <div class="pager-btns">
+              <button class="btn btn-outline btn-sm" id="prev-page">Previous</button>
+              <button class="btn btn-outline btn-sm" id="next-page">Next</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Detail drawer -->
+  <div class="overlay" id="detail-overlay">
+    <div class="modal" style="max-width:680px;">
+      <div class="modal-header">
+        <h3 id="detail-title">User</h3>
+        <button class="modal-close" id="detail-close">&times;</button>
+      </div>
+      <div class="modal-body" id="detail-body"></div>
+    </div>
+  </div>
+
+  <!-- Status-change confirm -->
+  <div class="overlay" id="status-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3 id="status-title">Change status</h3>
+        <button class="modal-close" id="status-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="section-label">Reason (required, logged to the audit trail)</div>
+        <textarea class="textarea" id="status-reason" placeholder="Why is this account's status changing?"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="status-cancel">Cancel</button>
+        <button class="btn btn-danger" id="status-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Permanent delete confirm -->
+  <div class="overlay" id="delete-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Permanently delete this account?</h3>
+        <button class="modal-close" id="delete-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="delete-preview" style="margin-bottom:14px;"></div>
+        <div id="delete-blocked" style="display:none;" class="form-error visible"></div>
+        <div id="delete-fields">
+          <div class="section-label">Type <strong id="delete-email-target"></strong> to confirm</div>
+          <input type="text" class="text-input" id="delete-confirm-email" placeholder="Account email" autocomplete="off" />
+          <div class="section-label" style="margin-top:12px;">Reason (required, logged to the audit trail)</div>
+          <textarea class="textarea" id="delete-reason" placeholder="Why is this account being permanently deleted?"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="delete-cancel">Cancel</button>
+        <button class="btn btn-danger" id="delete-confirm">Permanently delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/users.js"></script>
+</body>
+</html>

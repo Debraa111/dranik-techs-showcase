@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Held Payments — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Held Payments</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Awaiting release</h2>
+            <span id="held-count" style="font-size:12.5px;color:var(--muted);"></span>
+          </div>
+          <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px;">
+            Completed jobs whose payout hasn't been released yet — normally the provider releases these themselves
+            by entering the code the customer hands them in person. Rows here have been waiting a while, or the
+            provider's code attempts are locked out; use "Release Payment" to override manually.
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Service</th>
+                  <th>Provider</th>
+                  <th>Customer</th>
+                  <th>Amount</th>
+                  <th>Held since</th>
+                  <th>Code attempts</th>
+                  <th>Code expires</th>
+                </tr>
+              </thead>
+              <tbody id="held-tbody">
+                <tr><td colspan="8" style="padding:24px;"><div class="skeleton" style="height:16px;"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="empty-state" style="display:none;"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Held payment detail modal -->
+  <div class="overlay" id="detail-overlay">
+    <div class="modal" id="detail-modal">
+      <div class="modal-header">
+        <h3 id="detail-title">Held payment</h3>
+        <button class="modal-close" id="detail-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="detail-info"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-sm" id="btn-release">Release Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Release confirm modal (reason required) -->
+  <div class="overlay" id="action-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Release this payment?</h3>
+        <button class="modal-close" id="action-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13.5px;color:var(--muted);margin-top:0;">
+          This credits the provider's wallet immediately, bypassing the handoff code. Required — this becomes part
+          of the permanent audit record for this booking.
+        </p>
+        <div>
+          <label style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;">Reason</label>
+          <textarea class="textarea" id="action-reason" placeholder="e.g. Customer confirmed job completion by phone, code was lost"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" id="action-cancel">Cancel</button>
+        <button class="btn btn-sm btn-success" id="action-confirm">Release Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/held-payments.js"></script>
+</body>
+</html>

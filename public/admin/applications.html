@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Provider Applications — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Provider Applications</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Pending applications</h2>
+            <span id="app-count" style="font-size:12.5px;color:var(--muted);"></span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Applicant</th>
+                  <th>Business</th>
+                  <th>Category</th>
+                  <th>Phone</th>
+                  <th>Experience</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="applications-tbody">
+                <tr><td colspan="6" style="padding:24px;"><div class="skeleton" style="height:16px;"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="empty-state" style="display:none;"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Application detail modal -->
+  <div class="overlay" id="detail-overlay">
+    <div class="modal" id="detail-modal">
+      <div class="modal-header">
+        <h3 id="detail-title">Application</h3>
+        <button class="modal-close" id="detail-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="detail-info"></div>
+        <div class="section-label">Verification documents</div>
+        <div class="doc-list" id="detail-docs">
+          <div class="skeleton" style="height:56px;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" id="btn-request-info">Request More Info</button>
+        <button class="btn btn-danger btn-sm" id="btn-reject">Reject</button>
+        <button class="btn btn-success btn-sm" id="btn-approve">Approve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm / reason modal (Approve / Reject / Request Info) -->
+  <div class="overlay" id="action-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3 id="action-title">Confirm</h3>
+        <button class="modal-close" id="action-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="action-desc" style="font-size:13.5px;color:var(--muted);margin-top:0;"></p>
+        <div id="action-reason-field" style="display:none;">
+          <label style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;" id="action-reason-label">Reason</label>
+          <textarea class="textarea" id="action-reason"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" id="action-cancel">Cancel</button>
+        <button class="btn btn-sm" id="action-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/applications.js"></script>
+</body>
+</html>

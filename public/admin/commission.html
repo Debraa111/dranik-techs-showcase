@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commission — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Commission</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content" style="max-width:1400px;">
+        <div class="panel" style="margin-bottom:24px;max-width:520px;">
+          <div class="panel-header"><h2>Default commission rate</h2></div>
+          <div style="padding:20px;">
+            <div class="stat-card" style="margin-bottom:16px;">
+              <div class="stat-icon"><span class="material-symbols-outlined">percent</span></div>
+              <div class="stat-value" id="current-rate">—</div>
+              <div class="stat-label">Current default — applies to new providers only</div>
+            </div>
+            <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px;">
+              Changing this seeds new provider signups going forward. It never touches
+              existing providers' own rates or any payout that hasn't been released yet.
+            </p>
+            <div class="field"><label>New default rate (%)</label><input type="text" id="f-rate" placeholder="10.00" /></div>
+            <div class="field"><label>Reason (required, logged to the audit trail)</label><textarea class="textarea" id="f-reason" style="min-height:60px;"></textarea></div>
+            <button class="btn btn-primary" id="btn-save">Update default rate</button>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-bottom:24px;max-width:520px;">
+          <div class="panel-header"><h2>Booking fee</h2></div>
+          <div style="padding:20px;">
+            <div class="stat-card" style="margin-bottom:16px;">
+              <div class="stat-icon"><span class="material-symbols-outlined">receipt_long</span></div>
+              <div class="stat-value" id="current-fee">—</div>
+              <div class="stat-label" id="current-fee-label">Current flat fee — applies to new bookings only</div>
+            </div>
+            <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px;">
+              Charged to the customer on top of the service price, itemized at checkout.
+              Never affects provider payout. Changing or disabling it only applies to
+              bookings placed after the change — never touches one already placed.
+            </p>
+            <div class="field" style="display:flex;align-items:center;gap:10px;">
+              <input type="checkbox" id="f-fee-enabled" style="width:16px;height:16px;" />
+              <label style="margin:0;" for="f-fee-enabled">Fee enabled</label>
+            </div>
+            <div class="field"><label>Fee amount (₦)</label><input type="text" id="f-fee-amount" placeholder="500.00" /></div>
+            <div class="field"><label>Reason (required, logged to the audit trail)</label><textarea class="textarea" id="f-fee-reason" style="min-height:60px;"></textarea></div>
+            <button class="btn btn-primary" id="btn-save-fee">Update booking fee</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><h2>Commission ledger</h2></div>
+          <div class="toolbar">
+            <input type="date" id="f-from" />
+            <input type="date" id="f-to" />
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Service</th>
+                  <th>Provider</th>
+                  <th>Booking total</th>
+                  <th>Commission</th>
+                  <th>Provider earning</th>
+                  <th>Released</th>
+                </tr>
+              </thead>
+              <tbody id="ledger-tbody"></tbody>
+            </table>
+          </div>
+          <div id="empty-state"></div>
+          <div class="pagination">
+            <span id="page-info"></span>
+            <div class="pager-btns">
+              <button class="btn btn-outline btn-sm" id="prev-page">Previous</button>
+              <button class="btn btn-outline btn-sm" id="next-page">Next</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/commission.js"></script>
+</body>
+</html>

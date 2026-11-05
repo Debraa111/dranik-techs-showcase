@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Categories — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Categories</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content" style="max-width:1100px;">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Service categories</h2>
+            <button class="btn btn-primary btn-sm" id="btn-new">
+              <span class="material-symbols-outlined" style="font-size:16px;">add</span> New category
+            </button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Slug</th>
+                  <th>Active services</th>
+                  <th>Sort order</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cat-tbody"></tbody>
+            </table>
+          </div>
+          <div id="empty-state"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="overlay" id="edit-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3 id="edit-title">New category</h3>
+        <button class="modal-close" id="edit-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field"><label>Name</label><input type="text" id="f-name" /></div>
+        <div class="field"><label>Slug</label><input type="text" id="f-slug" placeholder="e.g. home-services" /></div>
+        <div class="field"><label>Description</label><textarea class="textarea" id="f-description" style="min-height:60px;"></textarea></div>
+        <div class="field"><label>Icon (Material Symbols name)</label><input type="text" id="f-icon" placeholder="e.g. cleaning_services" /></div>
+        <div class="field"><label>Sort order</label><input type="text" id="f-sort" placeholder="0" /></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="edit-cancel">Cancel</button>
+        <button class="btn btn-primary" id="edit-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/categories.js"></script>
+</body>
+</html>

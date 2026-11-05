@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Users & Roles — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Admin Users &amp; Roles</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content" style="max-width:1100px;">
+        <div class="panel" style="margin-bottom:24px;">
+          <div class="panel-header"><h2>Grant admin access</h2></div>
+          <div style="padding:20px;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
+            <div class="field" style="margin-bottom:0;flex:1;min-width:220px;">
+              <label>User's email (must already have a D'RANIK account)</label>
+              <input type="text" id="grant-email" placeholder="name@example.com" />
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Role</label>
+              <select id="grant-role">
+                <option value="super_admin">Super Admin</option>
+                <option value="operations_admin">Operations Admin</option>
+                <option value="finance_admin">Finance Admin</option>
+                <option value="support_admin">Support Admin</option>
+                <option value="content_admin">Content Admin</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="btn-grant">Grant role</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header"><h2>Admin accounts</h2></div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Admin</th>
+                  <th>Roles</th>
+                  <th>Since</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="admins-tbody"></tbody>
+            </table>
+          </div>
+          <div id="empty-state"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/admin-users.js"></script>
+</body>
+</html>

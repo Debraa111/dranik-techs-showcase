@@ -1,0 +1,2 @@
+# False positive: AsyncStorage key name ("dranik.favorites.v1"), not a secret
+src/lib/local-store.ts:generic-api-key:8

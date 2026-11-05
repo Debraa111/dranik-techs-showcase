@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Support Tickets — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Support Tickets</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content" style="max-width:1400px;">
+        <div class="panel">
+          <div class="toolbar">
+            <select id="f-status">
+              <option value="">All statuses</option>
+              <option value="open">Open</option>
+              <option value="in_progress">In progress</option>
+              <option value="resolved">Resolved</option>
+              <option value="closed">Closed</option>
+            </select>
+            <select id="f-priority">
+              <option value="">All priorities</option>
+              <option value="urgent">Urgent</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>From</th>
+                  <th>Category</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Assigned</th>
+                  <th>Submitted</th>
+                </tr>
+              </thead>
+              <tbody id="tickets-tbody"></tbody>
+            </table>
+          </div>
+          <div id="empty-state"></div>
+          <div class="pagination">
+            <span id="page-info"></span>
+            <div class="pager-btns">
+              <button class="btn btn-outline btn-sm" id="prev-page">Previous</button>
+              <button class="btn btn-outline btn-sm" id="next-page">Next</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="overlay" id="detail-overlay">
+    <div class="modal" style="max-width:560px;">
+      <div class="modal-header">
+        <h3 id="detail-title">Ticket</h3>
+        <button class="modal-close" id="detail-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="section-label">Reported by</div>
+        <div id="detail-meta"></div>
+        <div class="section-label">Description</div>
+        <p id="detail-description" style="font-size:13.5px;white-space:pre-wrap;"></p>
+
+        <div class="section-label">Triage</div>
+        <div class="field"><label>Status</label>
+          <select id="f-edit-status">
+            <option value="open">Open</option>
+            <option value="in_progress">In progress</option>
+            <option value="resolved">Resolved</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+        <div class="field"><label>Priority</label>
+          <select id="f-edit-priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="urgent">Urgent</option>
+          </select>
+        </div>
+        <div class="field"><label>Assigned to</label>
+          <select id="f-edit-assignee"><option value="">Unassigned</option></select>
+        </div>
+        <div class="field"><label>Internal notes (not visible to the customer)</label>
+          <textarea class="textarea" id="f-edit-notes" style="min-height:90px;"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="detail-cancel">Cancel</button>
+        <button class="btn btn-primary" id="detail-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/support.js"></script>
+</body>
+</html>

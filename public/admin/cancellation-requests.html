@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cancellation Requests — D'RANIK Techs Admin</title>
+  <link rel="stylesheet" href="/admin/css/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar-root"></aside>
+
+    <div class="main">
+      <header class="topbar">
+        <h1>Cancellation Requests</h1>
+        <div class="topbar-user">
+          <span id="user-email"></span>
+          <div class="topbar-avatar" id="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Awaiting review</h2>
+            <span id="request-count" style="font-size:12.5px;color:var(--muted);"></span>
+          </div>
+          <p style="font-size:12.5px;color:var(--muted);margin:0 0 14px;">
+            Once a booking is in progress, cancelling it isn't instant for either party — it lands here first.
+            Approving moves the booking to cancelled and lets you decide how the paid amount is split between a
+            customer refund and a provider payout for work already done; rejecting leaves the booking active.
+          </p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Service</th>
+                  <th>Requested by</th>
+                  <th>Provider</th>
+                  <th>Customer</th>
+                  <th>Amount</th>
+                  <th>Requested</th>
+                </tr>
+              </thead>
+              <tbody id="requests-tbody">
+                <tr><td colspan="7" style="padding:24px;"><div class="skeleton" style="height:16px;"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="empty-state" style="display:none;"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Request detail modal -->
+  <div class="overlay" id="detail-overlay">
+    <div class="modal" id="detail-modal">
+      <div class="modal-header">
+        <h3 id="detail-title">Cancellation request</h3>
+        <button class="modal-close" id="detail-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="detail-info"></div>
+        <div class="section-label">Reason given</div>
+        <p id="detail-reason" style="font-size:13.5px;margin:0;"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" id="btn-reject">Reject</button>
+        <button class="btn btn-success btn-sm" id="btn-approve">Approve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reject confirm modal (reason required) -->
+  <div class="overlay" id="reject-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Reject this request?</h3>
+        <button class="modal-close" id="reject-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13.5px;color:var(--muted);margin-top:0;">
+          The booking continues exactly as it was — nothing about its status or payment changes.
+        </p>
+        <div>
+          <label style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;">Reason</label>
+          <textarea class="textarea" id="reject-reason" placeholder="e.g. Job is nearly finished, not a fair reason to cancel"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" id="reject-cancel">Cancel</button>
+        <button class="btn btn-sm btn-danger" id="reject-confirm">Reject Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approve modal (choose refund/payout split) -->
+  <div class="overlay" id="approve-overlay">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Approve this cancellation</h3>
+        <button class="modal-close" id="approve-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13.5px;color:var(--muted);margin-top:0;">
+          There's no completion record for a job that never finished, so this is your call — use the checkpoint
+          log and both sides' account of things to decide what's fair.
+        </p>
+        <div id="approve-total" style="font-size:13.5px;font-weight:700;margin-bottom:12px;"></div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+            <input type="radio" name="split-mode" value="full_refund" checked /> Full refund to customer
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+            <input type="radio" name="split-mode" value="full_payout" /> Full payout to provider (job was essentially done)
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
+            <input type="radio" name="split-mode" value="custom" /> Custom split
+          </label>
+        </div>
+
+        <div id="custom-split-fields" style="display:none;gap:10px;margin-bottom:14px;">
+          <div style="flex:1;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Refund to customer (₦)</label>
+            <input type="number" id="custom-refund" min="0" step="1" style="width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:13.5px;" />
+          </div>
+          <div style="flex:1;">
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Payout to provider (₦)</label>
+            <input type="number" id="custom-payout" min="0" step="1" style="width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:13.5px;" />
+          </div>
+        </div>
+        <p id="split-error" style="font-size:12.5px;color:var(--error);display:none;margin:0 0 10px;"></p>
+
+        <div>
+          <label style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;">Note (optional)</label>
+          <textarea class="textarea" id="approve-note" placeholder="Internal note — shown in the audit log"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline btn-sm" id="approve-cancel">Cancel</button>
+        <button class="btn btn-sm btn-success" id="approve-confirm">Approve & Cancel Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/js/cancellation-requests.js"></script>
+</body>
+</html>
